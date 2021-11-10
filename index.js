@@ -23,7 +23,7 @@ async function run() {
         const carCollection = database.collection('car_collection');
 
         app.get('/car_collection', async (req, res) => {
-            const cursor = eventCollection.find({});
+            const cursor = carCollection.find({});
             const result = await cursor.toArray();
             res.send(result);
         })
