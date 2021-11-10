@@ -1,5 +1,5 @@
 // database=carHouseDB
-// collection=car_collection
+// collection=car-collection
 
 const express = require('express');
 const { MongoClient } = require('mongodb');
@@ -20,7 +20,7 @@ async function run() {
     try {
         await client.connect();
         const database = client.db('carHouseDB');
-        const carCollection = database.collection('car_collection');
+        const carCollection = database.collection('car-collection');
 
         app.get('/car_collection', async (req, res) => {
             const cursor = carCollection.find({});
