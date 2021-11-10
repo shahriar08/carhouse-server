@@ -21,9 +21,18 @@ async function run() {
         await client.connect();
         const database = client.db('carHouseDB');
         const carCollection = database.collection('products');
+        const ratingCollection = database.collection('ratings')
 
+        // car collection
         app.get('/car-collection', async (req, res) => {
             const cursor = carCollection.find({});
+            const result = await cursor.toArray();
+            res.send(result);
+        })
+
+        // ratings
+        app.get('/ratings', async (req, res) => {
+            const cursor = ratingCollection.find({});
             const result = await cursor.toArray();
             res.send(result);
         })
