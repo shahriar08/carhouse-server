@@ -20,9 +20,9 @@ async function run() {
     try {
         await client.connect();
         const database = client.db('carHouseDB');
-        const carCollection = database.collection('car-collection');
+        const carCollection = database.collection('products');
 
-        app.get('/car_collection', async (req, res) => {
+        app.get('/car-collection', async (req, res) => {
             const cursor = carCollection.find({});
             const result = await cursor.toArray();
             res.send(result);
