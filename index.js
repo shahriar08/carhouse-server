@@ -22,7 +22,7 @@ async function run() {
         const database = client.db('carHouseDB');
         const carCollection = database.collection('products');
         const ratingCollection = database.collection('ratings')
-
+        const orderCollection = database.collection('orders')
         // car collection
         app.get('/car-collection', async (req, res) => {
             const cursor = carCollection.find({});
@@ -36,6 +36,13 @@ async function run() {
             const result = await cursor.toArray();
             res.send(result);
         })
+
+
+        app.post('/orders',async (req,res) =>{
+            const order= req.body;
+            const result= await orderCollection.insertOne(order);
+            res.json(result)
+        });
 
     }
     finally {
