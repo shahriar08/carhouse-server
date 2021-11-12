@@ -23,6 +23,7 @@ async function run() {
         const carCollection = database.collection('products');
         const ratingCollection = database.collection('ratings')
         const orderCollection = database.collection('orders')
+        const usersCollection = database.collection('users');
         // car collection
         app.get('/car-collection', async (req, res) => {
             const cursor = carCollection.find({});
@@ -38,17 +39,27 @@ async function run() {
         })
 
         app.get('/orders',async (req,res) =>{
-            const cursor= orderCollection.find({});
+            const email = req.query.email;
+            const query = {email: email}
+            const cursor= orderCollection.find({query});
             const orders = await cursor.toArray();
             res.json(orders)
         })
-        
+
         app.post('/orders',async (req,res) =>{
             const order= req.body;
             const result= await orderCollection.insertOne(order);
             res.json(result)
         });
 
+        app.put('/users/admin',async(req,res)=>{
+            const user = req.body; 
+            const filter = {email: user.email};
+            const updateDoc = {$set: {role: 'admin'}};
+            const result = await usersCollection.updateOne(filter,updateDoc);
+            res.json(result);
+
+        })
     }
     finally {
 
