@@ -49,9 +49,15 @@ async function run() {
         app.post('/orders',async (req,res) =>{
             const order= req.body;
             const result= await orderCollection.insertOne(order);
+            console.log(result);
             res.json(result)
         });
-
+        
+        app.post('/users',async(req,res)=>{
+            const user = req.body;
+            const result = await usersCollection.insertOne(user);
+            res.json(result);
+        })
         app.get('/users/:email', async(req,res) =>{
             const email = req.params.email;
             const query = {email:email};
