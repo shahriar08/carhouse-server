@@ -51,6 +51,11 @@ async function run() {
             const orders = await cursor.toArray();
             res.json(orders)
         })
+        app.get('/manageOrders',async (req,res) =>{
+            const cursor = carCollection.find({});
+            const result = await cursor.toArray();
+            res.send(result);
+        })
 
         app.post('/orders',async (req,res) =>{
             const order= req.body;
