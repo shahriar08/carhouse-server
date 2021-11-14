@@ -41,7 +41,7 @@ async function run() {
         app.get('/orders',async (req,res) =>{
             const email = req.query.email;
             const query = {email: email}
-            const cursor= orderCollection.find({query});
+            const cursor= orderCollection.find(query);
             const orders = await cursor.toArray();
             res.json(orders)
         })
@@ -49,6 +49,14 @@ async function run() {
         app.post('/orders',async (req,res) =>{
             const order= req.body;
             const result= await orderCollection.insertOne(order);
+            console.log(result);
+            res.json(result)
+        });
+
+
+        app.post('/addCar',async (req,res) =>{
+            const newCar= req.body;
+            const result= await carCollection.insertOne(newCar);
             console.log(result);
             res.json(result)
         });
@@ -62,7 +70,7 @@ async function run() {
         app.put('/users',async (req,res)=>{
             const user = req.body;
             const filter = {email: user.email};
-            const options = {upsert: true};
+            const options = { upsert: true};
             const updateDoc = {$set: user};
             const result = usersCollection.updateOne(filter,updateDoc,options);
                 res.json(result);
