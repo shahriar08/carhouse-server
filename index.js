@@ -37,6 +37,12 @@ async function run() {
             const result = await cursor.toArray();
             res.send(result);
         })
+        app.post('/addRatings', async (req, res) => {
+            const newReview= req.body;
+            const result= await ratingCollection.insertOne(newReview);
+            console.log(result);
+            res.json(result)
+        })
 
         app.get('/orders',async (req,res) =>{
             const email = req.query.email;
@@ -52,7 +58,6 @@ async function run() {
             console.log(result);
             res.json(result)
         });
-
 
         app.post('/addCar',async (req,res) =>{
             const newCar= req.body;
