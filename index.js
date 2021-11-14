@@ -70,6 +70,14 @@ async function run() {
             console.log(result);
             res.json(result)
         });
+
+        app.delete("/deleteCar/:id", async (req, res) => {
+            const result = await carCollection.deleteOne({
+              _id: ObjectId(req.params.id),
+            });
+            res.send(result);
+          });
+          
         app.post('/addRatings',async (req,res) =>{
             const newRatings= req.body;
             const result= await ratingCollection.insertOne(newRatings);
