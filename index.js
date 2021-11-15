@@ -74,7 +74,7 @@ async function run() {
             res.json(result)
         });
         // delete car 
-        app.delete("/deleteCar/:id", async (req, res) => {
+        app.delete("/car-collection/:id", async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
             const result = await carCollection.deleteOne(query);
